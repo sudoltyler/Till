@@ -11,7 +11,7 @@ import SwiftUI
 struct TillApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TillView()
         }
     }
 }
