@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MoneyTableView: View {
     @State private var moneyGroups = MoneyGroup.defaultMoneyGroup
-    @State private var qty: String = ""
+    @State private var total: String = "0"
 
     var body: some View {
         Text("Count Drawer")
@@ -21,14 +21,14 @@ struct MoneyTableView: View {
                         TextField("Quantity", text: $moneyType.quantity)
                             .textFieldStyle(.roundedBorder)
                         Spacer()
-                        Text("$0")
+                        Text("$\(moneyType.value * (Float(moneyType.quantity) ?? 0))")
                     }
                 }
             }
         }
         .listStyle(InsetGroupedListStyle())
         Section(header: Text("Total")) {
-            Text("$000")
+            Text("$\(total)")
         }
     }
 }
