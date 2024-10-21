@@ -13,20 +13,23 @@ struct MoneyTableView: View {
 
     var body: some View {
         Text("Count Drawer")
-        List {
-            ForEach(moneyGroups) { group in
-                Section(header: Text(group.groupName)) {
-                    ForEach(group.moneyList) { money in
-                        HStack {
-                            Text(money.name)
-                            Spacer()
-                            TextField("Quantity", text: $qty)
-                        }
+        List($moneyGroups) { $group in
+            Section(header: Text($group.groupName.wrappedValue)) {
+                ForEach($group.moneyList) { $moneyType in
+                    HStack {
+                        Text(moneyType.name)
+                        TextField("Quantity", text: $moneyType.quantity)
+                            .textFieldStyle(.roundedBorder)
+                        Spacer()
+                        Text("$0")
                     }
                 }
             }
         }
         .listStyle(InsetGroupedListStyle())
+        Section(header: Text("Total")) {
+            Text("$000")
+        }
     }
 }
 
