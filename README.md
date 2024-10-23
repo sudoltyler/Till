@@ -4,4 +4,4 @@ iOS App written in Swift
 
 Easily count cash
 
-[Running screenshot](ss_01.png)
+<img src="ss_01.png" alt="screenshot" width="300"/>
