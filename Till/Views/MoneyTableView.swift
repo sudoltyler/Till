@@ -16,7 +16,7 @@ struct MoneyTableView: View {
     }
 
     var body: some View {
-        Text("Count Drawer")
+        Text("Count Till")
         List($groups) { $group in
             Section(header: Text($group.groupName.wrappedValue)) {
                 ForEach($group.moneyList) { $moneyType in
