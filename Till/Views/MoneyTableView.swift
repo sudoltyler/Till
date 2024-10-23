@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MoneyTableView: View {
     @State private var groups = MoneyGroup.defaultMoneyGroup
+    @FocusState private var isQuantityFocused: Bool
+    
     private var total: Double {
         groups[0].groupTotal() + groups[1].groupTotal()
     }
@@ -21,6 +23,7 @@ struct MoneyTableView: View {
                     HStack {
                         Text(moneyType.name)
                         TextField("Quantity", value: $moneyType.quantity, format: .number)
+                            .focused($isQuantityFocused)
                             .textFieldStyle(.roundedBorder)
                             .keyboardType(.decimalPad)
                         Spacer()
@@ -30,6 +33,13 @@ struct MoneyTableView: View {
             }
         }
         .listStyle(InsetGroupedListStyle())
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Button("Done") {
+                    isQuantityFocused.toggle()
+                }
+            }
+        }
         Section(header: Text("Total")) {
             Text(total, format: .currency(code: "USD"))
         }
