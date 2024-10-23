@@ -10,31 +10,44 @@ import Foundation
 struct Money: Identifiable {
     let id = UUID()
     let name: String
-    let value: Float
-    var quantity: String
+    let groupName: String
+    let value: Double
+    var quantity: Double?
+    
+    func total() -> Double {
+        return value * (quantity ?? 0)
+    }
 }
 
 extension Money {
     static let defaultCoins: [Money] =
     [
-        Money(name: "Pennies", value: 0.01, quantity: "0"),
-        Money(name: "Nickels", value: 0.05, quantity: "0"),
-        Money(name: "Dimes", value: 0.10, quantity: "0"),
-        Money(name: "Quarters", value: 0.25, quantity: "0"),
+        Money(name: "Pennies", groupName: "Coins", value: 0.01),
+        Money(name: "Nickels", groupName: "Coins", value: 0.05),
+        Money(name: "Dimes", groupName: "Coins", value: 0.10),
+        Money(name: "Quarters", groupName: "Coins", value: 0.25),
     ]
     static let defaultBills: [Money] =
     [
-        Money(name: "Dollars", value: 1, quantity: "0"),
-        Money(name: "Fives", value: 5, quantity: "0"),
-        Money(name: "Tens", value: 10, quantity: "0"),
-        Money(name: "Twenties", value: 20, quantity: "0")
+        Money(name: "Dollars", groupName: "Bills", value: 1),
+        Money(name: "Fives", groupName: "Bills", value: 5),
+        Money(name: "Tens", groupName: "Bills", value: 10),
+        Money(name: "Twenties", groupName: "Bills", value: 20)
     ]
 }
 
 struct MoneyGroup: Identifiable {
     var id = UUID()
     var groupName: String
-    var moneyList : [Money]
+    var moneyList: [Money]
+    
+    func groupTotal() -> Double {
+        var total: Double = 0
+        for money in moneyList {
+            total += money.total()
+        }
+        return total
+    }
 }
 
 extension MoneyGroup {
